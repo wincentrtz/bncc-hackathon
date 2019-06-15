@@ -1,1 +1,6 @@
-export default {};
+export default {
+  user: {
+    login: "/login",
+    register: "/register"
+  }
+};

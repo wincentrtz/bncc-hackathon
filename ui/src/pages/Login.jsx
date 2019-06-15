@@ -1,12 +1,24 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import { connect } from "react-redux";
 
 import LoginForm from "components/login/LoginForm";
+import { loginUser } from "store/actions/user-actions";
 
-const Login = () => {
-  return (
-    <LoginForm />
-  );
+const Login = ({ doLogin }) => {
+  const submit = value => {
+    doLogin(value);
+  };
+
+  return <LoginForm onSubmit={submit} />;
 };
 
-export default Login;
+const mapDispatchToProps = dispatch => {
+  return {
+    doLogin: value => dispatch(loginUser(value))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Login);

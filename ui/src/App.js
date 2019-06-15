@@ -15,8 +15,8 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <Switch>
-        <Route path="/login" component={Login} exact />
-        <Route path="/" component={Layout(Home)} exact />
+        <Route path="/login" component={Login} />
+        <Route path="/" component={Layout(Home)} />
       </Switch>
     </MuiThemeProvider>
   );

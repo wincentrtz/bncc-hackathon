@@ -1,20 +1,17 @@
 import React from "react";
+import { Form, Field, reduxForm } from "redux-form";
 import { makeStyles } from "@material-ui/core/styles";
-import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
 import {
   Paper,
   Grid,
   Button,
   Typography,
-  TextField,
   FormControlLabel,
   Checkbox,
   Divider
 } from "@material-ui/core";
+import EmailTextField from "./EmailTextField";
+import PasswordTextField from "./PasswordTextField";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -35,9 +32,6 @@ const useStyles = makeStyles(theme => ({
   },
   form: {
     padding: "40px 60px"
-  },
-  formControl: {
-    width: "100%"
   },
   forgetPassword: {
     margin: 0,
@@ -70,7 +64,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Login = () => {
+const Login = ({ handleSubmit }) => {
   const classes = useStyles();
   return (
     <Grid
@@ -81,7 +75,7 @@ const Login = () => {
     >
       <Grid item xs={9}>
         <Paper className={classes.container}>
-          <Grid container spacing={32}>
+          <Grid container>
             <Grid item xs={6} className={classes.form}>
               <Typography
                 className={classes.loginTitle}
@@ -98,49 +92,37 @@ const Login = () => {
               >
                 Plan Your Trip Now
               </Typography>
-              <FormControl className={classes.formControl} variant="outlined">
-                <TextField
-                  label="Email"
-                  className={classes.textField}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </FormControl>
-              <FormControl className={classes.formControl} variant="outlined">
-                <TextField
-                  label="Password"
-                  type="password"
-                  className={classes.textField}
-                  margin="normal"
-                  variant="outlined"
-                />
-              </FormControl>
-              <Grid container alignItems="center" justify="space-between">
-                <Grid item>
-                  <FormControlLabel
-                    value="end"
-                    control={<Checkbox color="primary" />}
-                    label="Remember Me"
-                    labelPlacement="end"
-                  />
+              <Form onSubmit={handleSubmit}>
+                <Field name="email" component={EmailTextField} />
+                <Field name="password" component={PasswordTextField} />
+                <Grid container alignItems="center" justify="space-between">
+                  <Grid item>
+                    <FormControlLabel
+                      value="end"
+                      control={<Checkbox color="primary" />}
+                      label="Remember Me"
+                      labelPlacement="end"
+                    />
+                  </Grid>
+                  <Grid item>
+                    <Typography
+                      className={classes.forgetPassword}
+                      variant="h6"
+                      gutterBottom
+                    >
+                      Forget Password?
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Typography
-                    className={classes.forgetPassword}
-                    variant="h6"
-                    gutterBottom
-                  >
-                    Forget Password?
-                  </Typography>
-                </Grid>
-              </Grid>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.formButton}
-              >
-                Login
-              </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className={classes.formButton}
+                >
+                  Login
+                </Button>
+              </Form>
               <Grid
                 className={classes.divider}
                 container
@@ -197,4 +179,6 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default reduxForm({
+  form: "login"
+})(Login);
