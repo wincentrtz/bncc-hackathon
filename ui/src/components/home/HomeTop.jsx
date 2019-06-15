@@ -11,15 +11,15 @@ const useStyles = makeStyles(theme => ({
     height: "100vh"
   },
   homeTitle: {
-    color: "#ffbd39",
+    color: "#fff",
     fontWeight: "bolder"
   },
   signature: {
-    color: "#ffbd39"
+    color: "#fff"
   },
   button: {
-    color: "#ffbd39",
-    borderColor: "#ffbd39",
+    color: "#fff",
+    borderColor: "#fff",
     fontWeight: "bolder",
     padding: "10px 20px"
   },

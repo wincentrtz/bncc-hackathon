@@ -9,9 +9,8 @@ import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: 400,
     marginBottom: "20px",
-    margin: "0 auto"
+    marginRight: "20px"
   },
   cardTitle: {
     fontWeight: "bolder"

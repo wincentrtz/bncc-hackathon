@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import configs from "./configs";
 import Album from "./pages/Album";
+import AlbumDetail from "./pages/AlbumDetail";
 
 const theme = createMuiTheme({
   palette: configs.colors,
@@ -16,6 +17,7 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <Switch>
+        <Route path="/album/:id" component={AlbumDetail} />
         <Route path="/album" component={Album} />
         <Route path="/login" component={Login} />
         <Route path="/" component={Home} />
