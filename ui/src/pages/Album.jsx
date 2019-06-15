@@ -16,7 +16,10 @@ const renderAlbums = albums => {
 };
 
 const Album = props => {
-  useEffect(() => props.doGetAlbums(), []);
+  function handleLogin() {
+    props.doGetAlbums();
+  }
+  useEffect(() => handleLogin(), []);
   return <Grid container>{renderAlbums(props.albums)}</Grid>;
 };
 
