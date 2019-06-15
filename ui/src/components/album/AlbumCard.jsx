@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 const renderColor = flag => (flag ? "#2196f3" : "#e10050");
 const renderChipLabel = flag => (flag ? "Paid" : "Unpaid");
 
-const AlbumCard = () => {
+const AlbumCard = ({ album }) => {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
@@ -45,7 +45,7 @@ const AlbumCard = () => {
               variant="h5"
               component="h2"
             >
-              Bandung - Jakarta
+              {album.name}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               By Author
@@ -53,9 +53,9 @@ const AlbumCard = () => {
           </Grid>
           <Grid item xs={2}>
             <Chip
-              label={renderChipLabel(true)}
+              label={renderChipLabel(album.IsPaidOff)}
               className={classes.chip}
-              style={{ backgroundColor: renderColor(true) }}
+              style={{ backgroundColor: renderColor(album.IsPaidOff) }}
             />
           </Grid>
         </Grid>

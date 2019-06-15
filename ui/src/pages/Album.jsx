@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import {
@@ -55,15 +56,23 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const renderAlbums = (classes, albums) => {
-  return albums.map(() => (
-    <Grid item xs={8} className={classes.albumList}>
-      <AlbumCard />
-    </Grid>
+  return albums.map(album => (
+    <Link to={`album/${album.id}`}>
+      <Grid key={album.id} item xs={8} className={classes.albumList}>
+        <AlbumCard album={album} />
+      </Grid>
+    </Link>
   ));
 };
 
 const Album = props => {
   const classes = useStyles();
+  const { albums } = props;
+
+  function handleGetAlbums() {
+    props.doGetAlbums();
+  }
+  useEffect(() => handleGetAlbums());
   const [open, setOpen] = React.useState(false);
   const [state, setState] = React.useState({
     top: false
@@ -131,7 +140,7 @@ const Album = props => {
             direction="row"
             alignItems="center"
           >
-            {renderAlbums(classes, props.albums)}
+            {renderAlbums(classes, albums)}
           </Grid>
         </Grid>
         <Grid item>

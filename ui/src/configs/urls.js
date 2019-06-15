@@ -3,6 +3,7 @@ export default {
     login: "/login"
   },
   album: {
-    getAlbums: "/albums"
+    getAlbums: "/albums",
+    getAlbumsDetail: id => "/albums/" + id
   }
 };

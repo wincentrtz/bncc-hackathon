@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
 import {
   Typography,
   Grid,
@@ -10,6 +11,8 @@ import {
   Divider
 } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+
+import { fetchAlbumDetail } from "store/actions/album-actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,12 +42,14 @@ const useStyles = makeStyles(theme => ({
 const renderColor = flag => (flag ? "#2196f3" : "#e10050");
 const renderChipLabel = flag => (flag ? "Paid" : "Unpaid");
 
-const AlbumDetail = () => {
+const AlbumDetail = props => {
   const classes = useStyles();
 
-  function handleSelect(date) {
-    console.log(date); // Momentjs object
+  function handleGetAlbumDetail() {
+    props.doGetAlbumDetail();
   }
+  useEffect(() => handleGetAlbumDetail(), []);
+
   return (
     <div className={classes.root}>
       <Paper className={classes.albumDetailPaper}>
@@ -54,15 +59,12 @@ const AlbumDetail = () => {
               Jakarta - Bandung
             </Typography>
             <Grid container>
-              <Grid item xs={2} style={{ textAlign: "center" }}>
-                <AccountCircle className={classes.iconUser} />
-              </Grid>
-              <Grid item xs={2} style={{ textAlign: "center" }}>
-                <AccountCircle className={classes.iconUser} />
-              </Grid>
-              <Grid item xs={2} style={{ textAlign: "center" }}>
-                <AccountCircle className={classes.iconUser} />
-              </Grid>
+              {props.album.users &&
+                props.album.users.map(() => (
+                  <Grid item xs={2} style={{ textAlign: "center" }}>
+                    <AccountCircle className={classes.iconUser} />
+                  </Grid>
+                ))}
             </Grid>
           </Grid>
           <Grid item xs={6}>
@@ -147,4 +149,19 @@ const AlbumDetail = () => {
   );
 };
 
-export default AlbumDetail;
+const mapStateToProps = ({ albumReducers }) => {
+  return {
+    album: albumReducers.album
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    doGetAlbumDetail: () => dispatch(fetchAlbumDetail())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AlbumDetail);
