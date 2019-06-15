@@ -14,6 +14,10 @@ func createUserTable() {
 			name VARCHAR NOT NULL,
 			email VARCHAR NOT NULL,
 			password VARCHAR NOT NULL,
+			phone VARCHAR NOT NULL,
+			address VARCHAR NOT NULL,
+			gender VARCHAR NOT NULL,
+			ktp VARCHAR NOT NULL,
 			created_on TIMESTAMP NOT NULL
 		);`
 

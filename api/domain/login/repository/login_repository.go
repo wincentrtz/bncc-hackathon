@@ -1,26 +1,28 @@
 package repository
 
 import (
+	"crypto/md5"
 	"database/sql"
-	"strconv"
+	"encoding/hex"
 	"time"
 
-	"github.com/wincentrtz/bncc/api/domain/user"
+	"github.com/wincentrtz/bncc/api/domain/login"
 	"github.com/wincentrtz/bncc/api/models"
 	"github.com/wincentrtz/bncc/api/models/builder"
+	"github.com/wincentrtz/bncc/api/models/request"
 )
 
-type userRepository struct {
+type loginRepository struct {
 	Conn *sql.DB
 }
 
-func NewUserRepository(Conn *sql.DB) user.Repository {
-	return &userRepository{
+func NewLoginRepository(Conn *sql.DB) login.Repository {
+	return &loginRepository{
 		Conn,
 	}
 }
 
-func (m *userRepository) FetchUserById(userId int) (*models.User, error) {
+func (m *loginRepository) Login(lr *request.LoginRequest) (*models.Login, error) {
 	var id int
 	var name string
 	var email string
@@ -31,9 +33,16 @@ func (m *userRepository) FetchUserById(userId int) (*models.User, error) {
 	var ktp string
 	var created time.Time
 
+	hasher := md5.New()
+	hasher.Write([]byte(lr.Password))
+	encryptedPassword := hex.EncodeToString(hasher.Sum(nil))
+
 	query := `
 		SELECT * FROM users
-		WHERE id =` + strconv.Itoa(userId)
+		WHERE 
+			email = '` + lr.Username + `' AND
+			password = '` + encryptedPassword + `'
+		`
 
 	err := m.Conn.QueryRow(query).Scan(
 		&id,
@@ -46,7 +55,6 @@ func (m *userRepository) FetchUserById(userId int) (*models.User, error) {
 		&ktp,
 		&created,
 	)
-
 	if err != nil {
 		return nil, err
 	}
@@ -62,5 +70,9 @@ func (m *userRepository) FetchUserById(userId int) (*models.User, error) {
 		Created(created).
 		Build()
 
-	return user, nil
+	login := builder.NewLogin().
+		User(*user).
+		Build()
+
+	return login, nil
 }

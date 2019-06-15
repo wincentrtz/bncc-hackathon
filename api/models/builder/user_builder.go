@@ -1,24 +1,34 @@
 package builder
 
-import "github.com/wincentrtz/bncc/api/models"
+import (
+	"time"
+
+	"github.com/wincentrtz/bncc/api/models"
+)
 
 type userBuilder struct {
-	id       int
-	name     string
-	email    string
-	password string
+	id      int
+	name    string
+	email   string
+	phone   string
+	address string
+	gender  string
+	ktp     string
+	created time.Time
 }
 
-// UserBuilder builder interface
 type UserBuilder interface {
 	Id(int) UserBuilder
 	Name(string) UserBuilder
 	Email(string) UserBuilder
-	Password(string) UserBuilder
+	Phone(string) UserBuilder
+	Address(string) UserBuilder
+	Gender(string) UserBuilder
+	Ktp(string) UserBuilder
+	Created(time.Time) UserBuilder
 	Build() *models.User
 }
 
-// New Builder Initialization
 func NewUser() UserBuilder {
 	return &userBuilder{}
 }
@@ -38,16 +48,40 @@ func (ub *userBuilder) Name(name string) UserBuilder {
 	return ub
 }
 
-func (ub *userBuilder) Password(password string) UserBuilder {
-	ub.password = password
+func (ub *userBuilder) Phone(phone string) UserBuilder {
+	ub.phone = phone
+	return ub
+}
+
+func (ub *userBuilder) Address(address string) UserBuilder {
+	ub.address = address
+	return ub
+}
+
+func (ub *userBuilder) Gender(gender string) UserBuilder {
+	ub.gender = gender
+	return ub
+}
+
+func (ub *userBuilder) Ktp(ktp string) UserBuilder {
+	ub.ktp = ktp
+	return ub
+}
+
+func (ub *userBuilder) Created(created time.Time) UserBuilder {
+	ub.created = created
 	return ub
 }
 
 func (ub *userBuilder) Build() *models.User {
 	return &models.User{
-		Id:       ub.id,
-		Email:    ub.email,
-		Password: ub.password,
-		Name:     ub.name,
+		Id:      ub.id,
+		Email:   ub.email,
+		Name:    ub.name,
+		Phone:   ub.phone,
+		Address: ub.address,
+		Gender:  ub.gender,
+		Ktp:     ub.ktp,
+		Created: ub.created,
 	}
 }

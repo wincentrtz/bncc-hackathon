@@ -24,14 +24,17 @@ func NewUserHandler(r *mux.Router, us user.Usecase) {
 func (uh *UserHandler) FetchByIdHandler(w http.ResponseWriter, r *http.Request) {
 	setupResponse(&w, r)
 	vars := mux.Vars(r)
+
 	i, err := strconv.Atoi(vars["id"])
 	if err != nil {
 		panic("ERROR")
 	}
+
 	user, err := uh.UserUsecase.FetchUserById(i)
 	if err != nil {
 		panic("ERROR")
 	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(user)
