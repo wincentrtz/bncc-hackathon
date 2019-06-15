@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"strconv"
 
-	"github.com/wincentrtz/bncc/domain/user"
-	"github.com/wincentrtz/bncc/models"
-	"github.com/wincentrtz/bncc/models/builder"
+	"github.com/wincentrtz/bncc/api/domain/user"
+	"github.com/wincentrtz/bncc/api/models"
+	"github.com/wincentrtz/bncc/api/models/builder"
 )
 
 type userRepository struct {

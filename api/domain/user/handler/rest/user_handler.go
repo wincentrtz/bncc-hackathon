@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/wincentrtz/bncc/domain/user"
+	"github.com/wincentrtz/bncc/api/domain/user"
 
 	"github.com/gorilla/mux"
 )

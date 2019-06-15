@@ -1,7 +1,7 @@
 package user
 
 import (
-	"github.com/wincentrtz/bncc/models"
+	"github.com/wincentrtz/bncc/api/models"
 )
 
 type Repository interface {

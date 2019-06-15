@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/wincentrtz/bncc/config"
+	"github.com/wincentrtz/bncc/api/config"
 )
 
 func createPostTable() {

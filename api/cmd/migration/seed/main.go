@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/bxcodec/faker"
-	"github.com/wincentrtz/bncc/config"
-	"github.com/wincentrtz/bncc/models"
+	"github.com/wincentrtz/bncc/api/config"
+	"github.com/wincentrtz/bncc/api/models"
 )
 
 func insertUserDataToDB(user models.User) {

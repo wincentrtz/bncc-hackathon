@@ -1,6 +1,6 @@
 package builder
 
-import "github.com/wincentrtz/bncc/models"
+import "github.com/wincentrtz/bncc/api/models"
 
 type userBuilder struct {
 	id       int

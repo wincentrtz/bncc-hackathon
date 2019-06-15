@@ -8,11 +8,11 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/spf13/viper"
-	"github.com/wincentrtz/bncc/config"
+	"github.com/wincentrtz/bncc/api/config"
 
-	userHandler "github.com/wincentrtz/bncc/domain/user/handler/rest"
-	_userRepository "github.com/wincentrtz/bncc/domain/user/repository"
-	_userUsecase "github.com/wincentrtz/bncc/domain/user/usecase"
+	userHandler "github.com/wincentrtz/bncc/api/domain/user/handler/rest"
+	_userRepository "github.com/wincentrtz/bncc/api/domain/user/repository"
+	_userUsecase "github.com/wincentrtz/bncc/api/domain/user/usecase"
 )
 
 func main() {

@@ -3,8 +3,8 @@ package usecase
 import (
 	"time"
 
-	"github.com/wincentrtz/bncc/domain/user"
-	"github.com/wincentrtz/bncc/models"
+	"github.com/wincentrtz/bncc/api/domain/user"
+	"github.com/wincentrtz/bncc/api/models"
 )
 
 type userUsecase struct {
