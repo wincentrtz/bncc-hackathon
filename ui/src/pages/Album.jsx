@@ -1,30 +1,24 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Grid } from "@material-ui/core";
 
 import AlbumCard from "../components/album/AlbumCard";
+import Layout from "../components/layout";
 
 import { fetchAlbums } from "store/actions/album-actions";
 
-class Album extends Component {
-  componentDidMount() {
-    this.props.doGetAlbums();
-  }
+const renderAlbums = albums => {
+  return albums.map(() => (
+    <Grid item xs={4}>
+      <AlbumCard />
+    </Grid>
+  ));
+};
 
-  renderAlbums = () => {
-    const { albums } = this.props;
-    console.log(albums);
-    return albums.map(() => (
-      <Grid item xs={4}>
-        <AlbumCard />
-      </Grid>
-    ));
-  };
-
-  render() {
-    return <Grid container>{this.renderAlbums()}</Grid>;
-  }
-}
+const Album = props => {
+  useEffect(() => props.doGetAlbums(), []);
+  return <Grid container>{renderAlbums(props.albums)}</Grid>;
+};
 
 const mapStateToProps = ({ albumReducers }) => {
   return {
@@ -41,4 +35,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Album);
+)(Layout(Album));

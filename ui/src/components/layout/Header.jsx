@@ -25,7 +25,7 @@ const Header = () => {
         <AppBar className={classes.appBar} position="static">
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
-              Ticket.com
+              Trippy
             </Typography>
             <AccountCircle />
           </Toolbar>
