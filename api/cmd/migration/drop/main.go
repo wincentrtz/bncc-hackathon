@@ -10,7 +10,8 @@ func main() {
 	db := config.InitDb()
 	defer db.Close()
 	schema := `DROP TABLE 
-		users`
+		users,
+		hotel`
 	_, err := db.Exec(schema)
 	if err != nil {
 		log.Fatal(err)

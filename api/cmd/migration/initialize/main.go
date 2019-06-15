@@ -27,6 +27,26 @@ func createUserTable() {
 	}
 }
 
+func createHotelTable() {
+	db := config.InitDb()
+	defer db.Close()
+	schema := `CREATE TABLE hotel(
+			id serial PRIMARY KEY,
+			name VARCHAR NOT NULL,
+			phone VARCHAR NOT NULL,
+			address VARCHAR NOT NULL,
+			city VARCHAR NOT NULL,
+			price INT NOT NULL,
+			created_on TIMESTAMP NOT NULL
+		);`
+
+	_, err := db.Exec(schema)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func main() {
 	createUserTable()
+	createHotelTable()
 }

@@ -17,6 +17,10 @@ import (
 	loginHandler "github.com/wincentrtz/bncc/api/domain/login/handler/rest"
 	_loginRepository "github.com/wincentrtz/bncc/api/domain/login/repository"
 	_loginUsecase "github.com/wincentrtz/bncc/api/domain/login/usecase"
+
+	hotelHandler "github.com/wincentrtz/bncc/api/domain/hotel/handler/rest"
+	_hotelRepository "github.com/wincentrtz/bncc/api/domain/hotel/repository"
+	_hotelUsecase "github.com/wincentrtz/bncc/api/domain/hotel/usecase"
 )
 
 func main() {
@@ -27,6 +31,7 @@ func main() {
 
 	registerUserHandler(r, timeoutContext, db)
 	registerLoginHandler(r, timeoutContext, db)
+	registerHotelHandler(r, timeoutContext, db)
 
 	fmt.Println("Starting..")
 	http.Handle("/", r)
@@ -43,4 +48,10 @@ func registerLoginHandler(r *mux.Router, timeoutContext time.Duration, db *sql.D
 	lr := _loginRepository.NewLoginRepository(db)
 	ls := _loginUsecase.NewLoginUsecase(lr, timeoutContext)
 	loginHandler.NewLoginHandler(r, ls)
+}
+
+func registerHotelHandler(r *mux.Router, timeoutContext time.Duration, db *sql.DB) {
+	hr := _hotelRepository.NewHotelRepository(db)
+	hs := _hotelUsecase.NewHotelUsecase(hr, timeoutContext)
+	hotelHandler.NewHotelHandler(r, hs)
 }
