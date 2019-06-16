@@ -58,6 +58,28 @@ func insertHotelDataToDB(hotel models.Hotel) {
 	}
 }
 
+func insertFlightDataToDB(flight models.Flight) {
+	db := config.InitDb()
+	defer db.Close()
+	fmt.Println(flight)
+	query := `
+		INSERT INTO flight 
+		VALUES(DEFAULT, $1, $2, $3, $4, $5, $6)
+	`
+	_, err := db.Exec(
+		query,
+		&flight.Date,
+		&flight.Time,
+		&flight.Departure,
+		&flight.Destination,
+		&flight.Price,
+		time.Now())
+
+	if err != nil {
+		panic(err)
+	}
+}
+
 func populateUserData(number int) {
 	for i := 1; i <= number; i++ {
 		user := models.User{}
@@ -102,7 +124,52 @@ func populateHotelData(number int) {
 	}
 }
 
+func populateFlightData(number int) {
+	destination := []string{
+		"Jakarta",
+		"Jakarta",
+		"Bali",
+		"Yogyakarta",
+		"Bali",
+		"Bali",
+	}
+
+	departure := []string{
+		"Bali",
+		"Bali",
+		"Jakarta",
+		"Bali",
+		"Jakarta",
+		"Yogyakarta",
+	}
+
+	time := []string{
+		"08.00 - 10.00",
+		"20.00 - 22.00",
+		"01.00 - 03.00",
+		"05.00 - 07.00",
+		"15.00 - 17.00",
+		"09.00 - 11.00",
+	}
+
+	for i := 1; i <= number; i++ {
+		flight := models.Flight{}
+		err := faker.FakeData(&flight)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		flight.Time = time[i]
+		flight.Departure = departure[i]
+		flight.Destination = destination[i]
+		flight.Price = flight.Price * 100000
+
+		insertFlightDataToDB(flight)
+	}
+}
+
 func main() {
 	populateUserData(20)
 	populateHotelData(5)
+	populateFlightData(5)
 }
