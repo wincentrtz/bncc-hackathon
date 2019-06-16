@@ -12,6 +12,7 @@ type userUsecase struct {
 	contextTimeout time.Duration
 }
 
+// NewsUserUseCase factory
 func NewUserUsecase(ur user.Repository, timeout time.Duration) user.Usecase {
 	return &userUsecase{
 		userRepo:       ur,
@@ -19,6 +20,7 @@ func NewUserUsecase(ur user.Repository, timeout time.Duration) user.Usecase {
 	}
 }
 
+// FetchUserByID
 func (pu *userUsecase) FetchUserById(userId int) (*models.User, error) {
 	user, err := pu.userRepo.FetchUserById(userId)
 	if err != nil {
