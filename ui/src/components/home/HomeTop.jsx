@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography, Button } from "@material-ui/core";
 
@@ -44,9 +45,9 @@ const HomeTop = () => {
         <Typography variant="h3" className={classes.signature} gutterBottom>
           Simply, Elegant & Fast
         </Typography>
-        <Button variant="outlined" className={classes.button}>
+       <Link to="/login"> <Button variant="outlined" className={classes.button}>
           Let's Holiday
-        </Button>
+        </Button></Link>
       </Grid>
       <Grid item xs={6}>
         <Grid container>
