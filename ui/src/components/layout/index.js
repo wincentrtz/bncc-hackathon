@@ -2,11 +2,11 @@ import React from "react";
 import Header from "./Header";
 import Content from "./Content";
 
-const Layout = props => () => {
+const Layout = Component => props => {
   return (
     <div>
       <Header />
-      <Content render={props} />
+      <Content render={() => <Component {...props} />} />
     </div>
   );
 };

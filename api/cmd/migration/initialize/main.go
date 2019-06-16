@@ -46,7 +46,45 @@ func createHotelTable() {
 	}
 }
 
+func createFlightTable() {
+	db := config.InitDb()
+	defer db.Close()
+	schema := `CREATE TABLE flight(
+			id serial PRIMARY KEY,
+			date TIMESTAMP,
+			time VARCHAR,
+			departure VARCHAR,
+			destination VARCHAR,
+			price INT,
+			created_on TIMESTAMP NOT NULL
+		);`
+
+	_, err := db.Exec(schema)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func createAlbumTable() {
+	db := config.InitDb()
+	defer db.Close()
+	schema := `CREATE TABLE albums(
+			id serial PRIMARY KEY,
+			name VARCHAR,
+			description VARCHAR,
+			paid INTEGER,
+			created_on TIMESTAMP NOT NULL
+		);`
+
+	_, err := db.Exec(schema)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func main() {
 	createUserTable()
 	createHotelTable()
+	createFlightTable()
+	createAlbumTable()
 }

@@ -58,6 +58,26 @@ func insertHotelDataToDB(hotel models.Hotel) {
 	}
 }
 
+func insertAlbumDataToDB(album models.Album) {
+	db := config.InitDb()
+	defer db.Close()
+
+	query := `
+		INSERT INTO albums
+		VALUES(DEFAULT, $1, $2, $3, $4)
+	`
+	_, err := db.Exec(
+		query,
+		&album.Name,
+		&album.Description,
+		&album.IsPaidOff,
+		time.Now())
+
+	if err != nil {
+		panic(err)
+	}
+}
+
 func populateUserData(number int) {
 	for i := 1; i <= number; i++ {
 		user := models.User{}
@@ -102,7 +122,40 @@ func populateHotelData(number int) {
 	}
 }
 
+func populateAlbumData(number int) {
+	name := []string{
+		"A",
+		"A",
+		"B",
+		"C",
+		"D",
+		"E",
+	}
+	description := []string{
+		"Bali",
+		"Bali",
+		"Jakarta",
+		"Bandung",
+		"Yogyakarta",
+		"Semarang",
+	}
+
+	for i := 1; i <= number; i++ {
+		album := models.Album{}
+		err := faker.FakeData(&album)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		album.Name = name[i]
+		album.Description = description[i]
+
+		insertAlbumDataToDB(album)
+	}
+}
+
 func main() {
 	populateUserData(20)
 	populateHotelData(5)
+	populateAlbumData(5)
 }

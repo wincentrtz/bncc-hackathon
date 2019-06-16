@@ -11,7 +11,9 @@ func main() {
 	defer db.Close()
 	schema := `DROP TABLE 
 		users,
-		hotel`
+		hotel,
+		flight,
+		albums`
 	_, err := db.Exec(schema)
 	if err != nil {
 		log.Fatal(err)

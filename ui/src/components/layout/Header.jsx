@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,14 +18,20 @@ const Header = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Ticket.com
-          </Typography>
-          <Button>Login</Button>
-        </Toolbar>
-      </AppBar>
+      <div className={classes.mainPage}>
+        <AppBar className={classes.appBar} position="static">
+          <Toolbar>
+            <Typography
+              color="secondary"
+              variant="h6"
+              className={classes.title}
+            >
+              Trippy
+            </Typography>
+            <AccountCircle />
+          </Toolbar>
+        </AppBar>
+      </div>
     </div>
   );
 };
