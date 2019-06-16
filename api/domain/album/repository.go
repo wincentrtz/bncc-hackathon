@@ -66,7 +66,27 @@ func (ar *albumRepository) FetchAll() ([]*models.Album, error) {
 }
 
 func (ar *albumRepository) FetchAlbumByID(albumID int) (*models.Album, error) {
-	return nil, nil
+	query := "SELECT a.id, a.name, a.description, a.isPaidOff, ip.imagePath FROM albums AS a JOIN imagePaths AS ip ON a.id = ip.album_id WHERE id = ?"
+
+	rows, err := ar.Conn.Query(query, albumID)
+	if err != nil {
+		return nil, err
+	}
+
+	defer rows.Close()
+	var imagePaths []string
+	album := &models.Album{}
+	for rows.Next() {
+		var imagePath string
+
+		rows.Scan(&album.ID, &album.Name, &album.Description, &album.IsPaidOff, &imagePath)
+
+		imagePaths = append(imagePaths, imagePath)
+	}
+
+	album.ImagePaths = imagePaths
+
+	return album, nil
 }
 
 func (ar *albumRepository) CreateAlbum(name string, description string, users []*models.User, imagePaths []string) (*models.Album, error) {

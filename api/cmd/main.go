@@ -14,6 +14,9 @@ import (
 	_userRepository "github.com/wincentrtz/bncc/api/domain/user/repository"
 	_userUsecase "github.com/wincentrtz/bncc/api/domain/user/usecase"
 
+	_album "github.com/wincentrtz/bncc/api/domain/album"
+	albumHandler "github.com/wincentrtz/bncc/api/domain/album/handler/rest"
+
 	loginHandler "github.com/wincentrtz/bncc/api/domain/login/handler/rest"
 	_loginRepository "github.com/wincentrtz/bncc/api/domain/login/repository"
 	_loginUsecase "github.com/wincentrtz/bncc/api/domain/login/usecase"
@@ -32,10 +35,17 @@ func main() {
 	registerUserHandler(r, timeoutContext, db)
 	registerLoginHandler(r, timeoutContext, db)
 	registerHotelHandler(r, timeoutContext, db)
+	registerAlbumHandler(r, timeoutContext, db)
 
 	fmt.Println("Starting..")
 	http.Handle("/", r)
 	http.ListenAndServe(":8080", nil)
+}
+
+func registerAlbumHandler(r *mux.Router, timeoutContext time.Duration, db *sql.DB) {
+	ar := _album.NewAlbumRepository(db)
+	as := _album.NewAlbumUsecase(ar, timeoutContext)
+	albumHandler.NewAlbumHandler(r, as)
 }
 
 func registerUserHandler(r *mux.Router, timeoutContext time.Duration, db *sql.DB) {
