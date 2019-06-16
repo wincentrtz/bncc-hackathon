@@ -14,6 +14,9 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 
 import { fetchAlbumDetail } from "store/actions/album-actions";
 import { fetchFlights } from "../store/actions/album-actions";
+import { axiosInstance } from "../services/axios.config";
+
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -60,6 +63,11 @@ const AlbumDetail = props => {
   function handleBuy(newPrice) {
     setPrice(newPrice * 3)
   }
+  
+  function checkOut() {
+    const data = axios.post('http://localhost:8000/otp/token');
+    console.log(data)
+  }
 
   return (
     <div className={classes.root}>
@@ -70,8 +78,7 @@ const AlbumDetail = props => {
               Jalan - jalan keluarga
             </Typography>
             <Grid container>
-              {props.album.users &&
-                props.album.users.map(() => (
+              {[1,2,3].map(() => (
                   <Grid item xs={2} style={{ textAlign: "center" }}>
                     <AccountCircle className={classes.iconUser} />
                   </Grid>
@@ -104,21 +111,21 @@ const AlbumDetail = props => {
           <Paper className={classes.listFlight}>
             <Grid container alignItems="center">
               <Grid item xs={10}>
-                <Grid
-                  style={{ margin: "10px 10px" }}
-                  container
-                  alignItems="center"
-                >
+                  <Grid
+                    style={{ margin: "10px 10px" }}
+                    container
+                    alignItems="center"
+                  >
                   <Grid item xs={3}>
                     Lion Air
                   </Grid>
                   <Grid item xs={3}>
                     13.00
-                    <br /> {flight.departure}
+                    <br /> {flight.destination}
                   </Grid>
                   <Grid item xs={3}>
                     14.40
-                    <br /> {flight.destination}
+                    <br /> {flight.departure}
                   </Grid>
                   <Grid item xs={3}>
                     1j 40m
@@ -135,11 +142,11 @@ const AlbumDetail = props => {
                   </Grid>
                   <Grid item xs={3}>
                     13.00
-                    <br /> {flight.destination}
+                    <br /> {flight.departure}
                   </Grid>
                   <Grid item xs={3}>
                     14.40
-                    <br /> flight.departure}
+                    <br /> {flight.destination}
                   </Grid>
                   <Grid item xs={3}>
                     1j 40m

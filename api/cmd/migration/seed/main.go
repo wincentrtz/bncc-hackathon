@@ -146,20 +146,20 @@ func populateHotelData(number int) {
 
 func populateAlbumData(number int) {
 	name := []string{
-		"A",
-		"A",
-		"B",
-		"C",
-		"D",
-		"E",
+		"Jakarta - Bali",
+		"Jakarta - Bali",
+		"Jakarta - Bali",
+		"Jakarta - Bali",
+		"Jakarta - Bali",
+		"Jakarta - Bali",
 	}
 	description := []string{
-		"Bali",
-		"Bali",
-		"Jakarta",
-		"Bandung",
-		"Yogyakarta",
-		"Semarang",
+		"Jakarta - Bali",
+		"Jakarta - Bali",
+		"Jakarta - Bali",
+		"Jakarta - Bali",
+		"Jakarta - Bali",
+		"Jakarta - BaliZ",
 	}
 
 	for i := 1; i <= number; i++ {
@@ -180,19 +180,19 @@ func populateFlightData(number int) {
 	destination := []string{
 		"Jakarta",
 		"Jakarta",
-		"Bali",
-		"Yogyakarta",
-		"Bali",
-		"Bali",
+		"Jakarta",
+		"Jakarta",
+		"Jakarta",
+		"Jakarta",
 	}
 
 	departure := []string{
 		"Bali",
 		"Bali",
-		"Jakarta",
 		"Bali",
-		"Jakarta",
-		"Yogyakarta",
+		"Bali",
+		"Bali",
+		"Bali",
 	}
 
 	time := []string{
