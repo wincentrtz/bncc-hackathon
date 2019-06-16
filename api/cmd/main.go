@@ -25,6 +25,10 @@ import (
 	albumHandler "github.com/wincentrtz/bncc/api/domain/album/handler/rest"
 	_albumRepository "github.com/wincentrtz/bncc/api/domain/album/repository"
 	_albumUsecase "github.com/wincentrtz/bncc/api/domain/album/usecase"
+
+	flightHandler "github.com/wincentrtz/bncc/api/domain/flight/handler/rest"
+	_flightRepository "github.com/wincentrtz/bncc/api/domain/flight/repository"
+	_flightUsecase "github.com/wincentrtz/bncc/api/domain/flight/usecase"
 )
 
 func main() {
@@ -36,6 +40,7 @@ func main() {
 	registerUserHandler(r, timeoutContext, db)
 	registerLoginHandler(r, timeoutContext, db)
 	registerHotelHandler(r, timeoutContext, db)
+	registerFlightHandler(r, timeoutContext, db)
 	registerAlbumHandler(r, timeoutContext, db)
 
 	fmt.Println("Starting..")
@@ -65,4 +70,10 @@ func registerAlbumHandler(r *mux.Router, timeoutContext time.Duration, db *sql.D
 	ar := _albumRepository.NewAlbumRepository(db)
 	as := _albumUsecase.NewAlbumUsecase(ar, timeoutContext)
 	albumHandler.NewAlbumHandler(r, as)
+}
+
+func registerFlightHandler(r *mux.Router, timeoutContext time.Duration, db *sql.DB) {
+	fr := _flightRepository.NewFlightRepository(db)
+	fs := _flightUsecase.NewFlightUsecase(fr, timeoutContext)
+	flightHandler.NewFlightHandler(r, fs)
 }
