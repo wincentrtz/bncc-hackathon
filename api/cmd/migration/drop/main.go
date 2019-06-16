@@ -9,7 +9,11 @@ import (
 func main() {
 	db := config.InitDb()
 	defer db.Close()
-	schema := "DROP TABLE posts, post_status, users"
+	schema := `DROP TABLE 
+		users,
+		hotel,
+		flight,
+		albums`
 	_, err := db.Exec(schema)
 	if err != nil {
 		log.Fatal(err)

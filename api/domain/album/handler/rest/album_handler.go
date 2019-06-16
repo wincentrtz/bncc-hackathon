@@ -3,41 +3,32 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
-	"strconv"
 
-	"github.com/wincentrtz/bncc/api/domain/user"
+	"github.com/wincentrtz/bncc/api/domain/album"
 
 	"github.com/gorilla/mux"
 )
 
-type UserHandler struct {
-	UserUsecase user.Usecase
+type AlbumHandler struct {
+	AlbumUsecase album.Usecase
 }
 
-func NewUserHandler(r *mux.Router, us user.Usecase) {
-	handler := &UserHandler{
-		UserUsecase: us,
+func NewAlbumHandler(r *mux.Router, hu album.Usecase) {
+	handler := &AlbumHandler{
+		AlbumUsecase: hu,
 	}
-	r.HandleFunc("/api/user/{id}", handler.FetchByIdHandler).Methods("GET")
+	r.HandleFunc("/api/album", handler.FetchAlbum).Methods("GET")
 }
 
-func (uh *UserHandler) FetchByIdHandler(w http.ResponseWriter, r *http.Request) {
-	setupResponse(&w, r)
-	vars := mux.Vars(r)
-
-	i, err := strconv.Atoi(vars["id"])
-	if err != nil {
-		panic("ERROR")
-	}
-
-	user, err := uh.UserUsecase.FetchUserById(i)
+func (hh *AlbumHandler) FetchAlbum(w http.ResponseWriter, r *http.Request) {
+	albums, err := hh.AlbumUsecase.FetchAlbum()
 	if err != nil {
 		panic("ERROR")
 	}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(user)
+	json.NewEncoder(w).Encode(albums)
 }
 
 func setupResponse(w *http.ResponseWriter, req *http.Request) {
