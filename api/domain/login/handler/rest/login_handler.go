@@ -19,11 +19,15 @@ func NewLoginHandler(r *mux.Router, lu login.Usecase) {
 	handler := &LoginHandler{
 		LoginUsecase: lu,
 	}
-	r.HandleFunc("/api/login", handler.Login).Methods("POST")
+	r.HandleFunc("/api/login", handler.Login).Methods("POST", "OPTIONS")
 }
 
 func (lh *LoginHandler) Login(w http.ResponseWriter, r *http.Request) {
 	setupResponse(&w, r)
+
+	if (*r).Method == "OPTIONS" {
+		return
+	}
 
 	var loginRequest request.LoginRequest
 	_ = json.NewDecoder(r.Body).Decode(&loginRequest)

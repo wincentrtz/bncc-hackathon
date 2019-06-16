@@ -6,6 +6,7 @@ const url = config.urls.user;
 
 export default {
   login(payload) {
+    console.log(payload)
     return axiosInstance.post(url.login, payload);
   }
 };

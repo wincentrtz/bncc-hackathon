@@ -21,6 +21,7 @@ func NewFlightHandler(r *mux.Router, fu flight.Usecase) {
 }
 
 func (fh *FlightHandler) FetchFlight(w http.ResponseWriter, r *http.Request) {
+	setupResponse(&w, r)
 	flights, err := fh.FlightUsecase.FetchFlight()
 	if err != nil {
 		panic("ERROR")

@@ -21,6 +21,7 @@ func NewAlbumHandler(r *mux.Router, hu album.Usecase) {
 }
 
 func (hh *AlbumHandler) FetchAlbum(w http.ResponseWriter, r *http.Request) {
+	setupResponse(&w, r)
 	albums, err := hh.AlbumUsecase.FetchAlbum()
 	if err != nil {
 		panic("ERROR")

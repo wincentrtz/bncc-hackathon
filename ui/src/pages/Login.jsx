@@ -7,6 +7,7 @@ import { loginUser } from "store/actions/user-actions";
 const Login = ({ doLogin }) => {
   const submit = value => {
     doLogin(value);
+    window.location = '/album'
   };
 
   return <LoginForm onSubmit={submit} />;

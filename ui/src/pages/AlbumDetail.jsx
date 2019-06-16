@@ -56,8 +56,9 @@ const AlbumDetail = props => {
     props.doGetFlights();
   }
 
-  function buyTickets() {
-    setPrice("3,219,600");
+
+  function handleBuy(newPrice) {
+    setPrice(newPrice * 3)
   }
 
   return (
@@ -66,7 +67,7 @@ const AlbumDetail = props => {
         <Grid container justify="space-around" alignItems="center">
           <Grid item xs={6}>
             <Typography className={classes.albumTitle} variant="h4">
-              Jakarta - Bandung
+              Jalan - jalan keluarga
             </Typography>
             <Grid container>
               {props.album.users &&
@@ -113,11 +114,11 @@ const AlbumDetail = props => {
                   </Grid>
                   <Grid item xs={3}>
                     13.00
-                    <br /> JKT
+                    <br /> {flight.departure}
                   </Grid>
                   <Grid item xs={3}>
                     14.40
-                    <br /> PKU
+                    <br /> {flight.destination}
                   </Grid>
                   <Grid item xs={3}>
                     1j 40m
@@ -134,11 +135,11 @@ const AlbumDetail = props => {
                   </Grid>
                   <Grid item xs={3}>
                     13.00
-                    <br /> PKU
+                    <br /> {flight.destination}
                   </Grid>
                   <Grid item xs={3}>
                     14.40
-                    <br /> JKT
+                    <br /> flight.departure}
                   </Grid>
                   <Grid item xs={3}>
                     1j 40m
@@ -148,12 +149,10 @@ const AlbumDetail = props => {
               <Grid item xs={2}>
                 <Grid container>
                   <Grid item xs={12}>
-                    Rp 1.073.200/pax
+                    {"Rp. "+flight.price}
                   </Grid>
                   <Grid item xs={12}>
-                    <Button onClick={buyTickets} variant="outlined">
-                      BUY
-                    </Button>
+                    <Button onClick={() => handleBuy(flight.price)} variant="outlined">BUY</Button>
                   </Grid>
                 </Grid>
               </Grid>

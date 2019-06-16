@@ -3,8 +3,7 @@ export default {
     login: "/login"
   },
   album: {
-    getAlbums: "/albums",
-    getAlbumsDetail: "/albums/",
-    getFlight: "/flights"
+    getAlbums: "/album",
+    getFlight: "/flight"
   }
 };
