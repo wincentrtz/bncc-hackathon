@@ -13,6 +13,7 @@ import {
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
 import { fetchAlbumDetail } from "store/actions/album-actions";
+import { fetchFlights } from "../store/actions/album-actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,6 +51,10 @@ const AlbumDetail = props => {
   }
   useEffect(() => handleGetAlbumDetail(), []);
 
+  function searchFlights() {
+    props.doGetFlights();
+  }
+
   return (
     <div className={classes.root}>
       <Paper className={classes.albumDetailPaper}>
@@ -84,66 +89,70 @@ const AlbumDetail = props => {
             <TextField type="date" margin="normal" variant="outlined" />
           </Grid>
           <Grid item xs={4}>
-            <Button variant="outlined">Search</Button>
+            <Button onClick={searchFlights} variant="outlined">
+              Search
+            </Button>
           </Grid>
         </Grid>
-        <Paper className={classes.listFlight}>
-          <Grid container alignItems="center">
-            <Grid item xs={10}>
-              <Grid
-                style={{ margin: "10px 10px" }}
-                container
-                alignItems="center"
-              >
-                <Grid item xs={3}>
-                  Lion Air
+        {props.flights.map(flight => (
+          <Paper className={classes.listFlight}>
+            <Grid container alignItems="center">
+              <Grid item xs={10}>
+                <Grid
+                  style={{ margin: "10px 10px" }}
+                  container
+                  alignItems="center"
+                >
+                  <Grid item xs={3}>
+                    Lion Air
+                  </Grid>
+                  <Grid item xs={3}>
+                    13.00
+                    <br /> JKT
+                  </Grid>
+                  <Grid item xs={3}>
+                    14.40
+                    <br /> PKU
+                  </Grid>
+                  <Grid item xs={3}>
+                    1j 40m
+                  </Grid>
                 </Grid>
-                <Grid item xs={3}>
-                  13.00
-                  <br /> JKT
-                </Grid>
-                <Grid item xs={3}>
-                  14.40
-                  <br /> PKU
-                </Grid>
-                <Grid item xs={3}>
-                  1j 40m
+                <Divider />
+                <Grid
+                  style={{ margin: "10px 10px" }}
+                  container
+                  alignItems="center"
+                >
+                  <Grid item xs={3}>
+                    Lion Air
+                  </Grid>
+                  <Grid item xs={3}>
+                    13.00
+                    <br /> PKU
+                  </Grid>
+                  <Grid item xs={3}>
+                    14.40
+                    <br /> JKT
+                  </Grid>
+                  <Grid item xs={3}>
+                    1j 40m
+                  </Grid>
                 </Grid>
               </Grid>
-              <Divider />
-              <Grid
-                style={{ margin: "10px 10px" }}
-                container
-                alignItems="center"
-              >
-                <Grid item xs={3}>
-                  Lion Air
-                </Grid>
-                <Grid item xs={3}>
-                  13.00
-                  <br /> PKU
-                </Grid>
-                <Grid item xs={3}>
-                  14.40
-                  <br /> JKT
-                </Grid>
-                <Grid item xs={3}>
-                  1j 40m
+              <Grid item xs={2}>
+                <Grid container>
+                  <Grid item xs={12}>
+                    Rp 1.073.200/pax
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button variant="outlined">BUY</Button>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={2}>
-              <Grid container>
-                <Grid item xs={12}>
-                  Rp 1.073.200/pax
-                </Grid>
-                <Grid item xs={12}>
-                  <Button variant="outlined">BUY</Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Paper>
+          </Paper>
+        ))}
       </Paper>
     </div>
   );
@@ -151,12 +160,14 @@ const AlbumDetail = props => {
 
 const mapStateToProps = ({ albumReducers }) => {
   return {
-    album: albumReducers.album
+    album: albumReducers.album,
+    flights: albumReducers.flights
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    doGetFlights: () => dispatch(fetchFlights()),
     doGetAlbumDetail: () => dispatch(fetchAlbumDetail())
   };
 };

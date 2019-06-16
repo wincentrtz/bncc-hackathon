@@ -4,6 +4,7 @@ export default {
   },
   album: {
     getAlbums: "/albums",
-    getAlbumsDetail: id => "/albums/" + id
+    getAlbumsDetail: "/albums/",
+    getFlight: "/flights"
   }
 };

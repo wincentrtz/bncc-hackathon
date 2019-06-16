@@ -35,5 +35,22 @@ export default {
         name: "dasdad"
       }
     ]
-  }
+  },
+  flightData: [
+    {
+      go: {
+        from: "13.00",
+        to: "14.40",
+        plane: "Lion",
+        direct: "Direct"
+      },
+      return: {
+        from: "13.00",
+        to: "14.40",
+        plane: "Lion",
+        direct: "Direct"
+      },
+      price: "1.507.000"
+    }
+  ]
 };

@@ -1,8 +1,13 @@
-import { FETCH_ALBUM, FETCH_ALBUM_DETAIL } from "../constant/album-constants";
+import {
+  FETCH_ALBUM,
+  FETCH_ALBUM_DETAIL,
+  FETCH_FLIGHTS
+} from "../constant/album-constants";
 
 const albumState = {
   albums: [],
-  album: {}
+  album: {},
+  flights: []
 };
 
 const albumReducers = (state = albumState, action) => {
@@ -16,6 +21,11 @@ const albumReducers = (state = albumState, action) => {
       return {
         ...state,
         album: action.payload
+      };
+    case FETCH_FLIGHTS:
+      return {
+        ...state,
+        flights: action.payload
       };
     default:
       return state;
