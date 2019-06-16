@@ -45,6 +45,7 @@ const renderChipLabel = flag => (flag ? "Paid" : "Unpaid");
 
 const AlbumDetail = props => {
   const classes = useStyles();
+  const [price, setPrice] = React.useState(0);
 
   function handleGetAlbumDetail() {
     props.doGetAlbumDetail();
@@ -53,6 +54,10 @@ const AlbumDetail = props => {
 
   function searchFlights() {
     props.doGetFlights();
+  }
+
+  function buyTickets() {
+    setPrice("3,219,600");
   }
 
   return (
@@ -74,7 +79,7 @@ const AlbumDetail = props => {
           </Grid>
           <Grid item xs={6}>
             <Typography className={classes.albumTitle} variant="h4">
-              Rp. 0
+              Rp. {price}
             </Typography>
             <Button variant="outlined">Checkout</Button>
           </Grid>
@@ -146,7 +151,9 @@ const AlbumDetail = props => {
                     Rp 1.073.200/pax
                   </Grid>
                   <Grid item xs={12}>
-                    <Button variant="outlined">BUY</Button>
+                    <Button onClick={buyTickets} variant="outlined">
+                      BUY
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>

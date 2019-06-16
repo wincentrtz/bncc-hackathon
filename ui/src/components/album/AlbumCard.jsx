@@ -29,6 +29,7 @@ const renderChipLabel = flag => (flag ? "Paid" : "Unpaid");
 
 const AlbumCard = ({ album }) => {
   const classes = useStyles();
+
   return (
     <Card className={classes.card}>
       <CardMedia
